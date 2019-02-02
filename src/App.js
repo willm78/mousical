@@ -27,10 +27,20 @@ class App extends Component {
     this.setState({ x, y });
   };
 
+  onTouchMove = ({ touches }) => {
+    const { clientX: x, clientY: y } = touches[0];
+    synth.triggerAttackRelease(x, '8n');
+    this.setState({ x, y });
+  };
+
   render() {
     const { on, x, y } = this.state;
     return (
-      <div className="App" onMouseMove={on ? this.onMouseMove : () => null}>
+      <div
+        className="App"
+        onMouseMove={on ? this.onMouseMove : () => null}
+        onTouchMove={on ? this.onTouchMove : () => null}
+      >
         <h1>Mousical</h1>
         <button onClick={this.toggleOnOff} className="StartBtn">
           {on ? 'Stop' : 'Start'}
