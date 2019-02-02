@@ -1,0 +1,21 @@
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.StartBtn {
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  color: white;
+  background-color: red;
+  margin: 1rem;
+}
