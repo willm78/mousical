@@ -5,6 +5,8 @@ import webAudioTouchUnlock from './webAudioTouchUnlock';
 
 import './App.css';
 
+const MAX_FREQ = 2000;
+
 class App extends Component {
   state = {
     on: false,
@@ -39,7 +41,11 @@ class App extends Component {
 
   render() {
     const { on, x, y } = this.state;
-    on && this.synth && this.synth.triggerAttackRelease(x, '8n');
+    let freq;
+    if (on && this.synth) {
+      freq = ((x / window.innerWidth) * MAX_FREQ).toFixed();
+      this.synth.triggerAttackRelease(freq, '8n');
+    }
     return (
       <div
         className="App"
@@ -52,7 +58,7 @@ class App extends Component {
         </button>
         <div
           style={{ visibility: on ? 'visible' : 'hidden' }}
-        >{`Frequency: ${x}Hz`}</div>
+        >{`Frequency: ${freq}Hz`}</div>
       </div>
     );
   }
