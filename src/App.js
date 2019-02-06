@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Tone from 'tone';
 
-import './App.css';
+import webAudioTouchUnlock from './webAudioTouchUnlock';
 
-const synth = new Tone.AMSynth().toMaster();
+import './App.css';
 
 class App extends Component {
   state = {
@@ -23,18 +23,23 @@ class App extends Component {
   };
 
   onMouseMove = ({ clientX: x, clientY: y }) => {
-    synth.triggerAttackRelease(x, '8n');
     this.setState({ x, y });
   };
 
   onTouchMove = ({ touches }) => {
     const { clientX: x, clientY: y } = touches[0];
-    synth.triggerAttackRelease(x, '8n');
     this.setState({ x, y });
   };
 
+  componentDidMount() {
+    webAudioTouchUnlock(Tone.context).then(
+      () => (this.synth = new Tone.AMSynth().toMaster())
+    );
+  }
+
   render() {
     const { on, x, y } = this.state;
+    on && this.synth && this.synth.triggerAttackRelease(x, '8n');
     return (
       <div
         className="App"
