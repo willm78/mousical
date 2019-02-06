@@ -10,15 +10,19 @@ const MAX_FREQ = 2000;
 class App extends Component {
   state = {
     on: false,
+    agreed: false,
     x: 0,
     y: 0,
   };
 
   toggleOnOff = () => {
-    this.setState(({ on }) => {
+    this.setState(({ on, agreed }) => {
       if (!on) {
-        const result = window.confirm('This app makes noise! Is this ok?');
-        return result ? { on: true } : null;
+        if (!agreed) {
+          const result = window.confirm('This app makes noise! Is this ok?');
+          return result ? { on: true, agreed: true } : null;
+        }
+        return { on: true };
       }
       return { on: false };
     });
