@@ -46,8 +46,10 @@ class App extends Component {
   render() {
     const { on, x, y } = this.state;
     let freq;
+    let yNorm;
     if (on && this.synth) {
       freq = ((x / window.innerWidth) * MAX_FREQ).toFixed();
+      yNorm = 255 - ((y / window.innerHeight) * 180).toFixed();
       this.synth.triggerAttackRelease(freq, '8n');
     }
     return (
@@ -55,6 +57,11 @@ class App extends Component {
         className="App"
         onMouseMove={on ? this.onMouseMove : () => null}
         onTouchMove={on ? this.onTouchMove : () => null}
+        style={
+          yNorm
+            ? { backgroundColor: `rgb(${yNorm}, ${yNorm}, ${yNorm})` }
+            : null
+        }
       >
         <h1>Mousical</h1>
         <button onClick={this.toggleOnOff} className="StartBtn">
