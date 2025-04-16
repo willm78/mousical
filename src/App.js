@@ -48,7 +48,7 @@ class App extends Component {
     let freq;
     let yNorm;
     if (on && this.synth) {
-      freq = ((x / window.innerWidth) * MAX_FREQ).toFixed();
+      freq = ((y / window.innerHeight) * MAX_FREQ).toFixed();
       yNorm = 255 - ((y / window.innerHeight) * 180).toFixed();
       this.synth.triggerAttackRelease(freq, '8n');
     }
